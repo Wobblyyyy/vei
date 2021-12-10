@@ -3,11 +3,7 @@ package vei.plugin;
 import vei.commands.CommandRegistry;
 
 public interface VeiPlugin {
-    String getName();
-    String getAuthor();
-    VeiPluginVersion getVersion();
-    String getDescription();
-    void onLoad(VeiPluginConfiguration configuration);
+    VeiPluginInformation getPluginInformation();
     void onKeyPress(VeiPluginKeyPress keyPress);
     void onFileOpen(VeiFileOpen fileOpen);
     void onFileClose(VeiFileClose fileClose);
