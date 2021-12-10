@@ -1,5 +1,8 @@
 package vei;
 
+// i would like to quickly disclose that nearly all of this code was written
+// in about 5 minutes using vim macros
+
 public enum Key {
     // no key
     NONE,
