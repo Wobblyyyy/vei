@@ -5,7 +5,7 @@ import vei.commands.CommandRegistry;
 public interface VeiPlugin {
     String getName();
     String getAuthor();
-    Version getVersion();
+    VeiPluginVersion getVersion();
     String getDescription();
     void onLoad(VeiPluginConfiguration configuration);
     void onKeyPress(VeiPluginKeyPress keyPress);
