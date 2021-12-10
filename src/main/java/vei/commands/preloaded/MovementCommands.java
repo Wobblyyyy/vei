@@ -1,5 +1,6 @@
 package vei.commands.preloaded;
 
+import vei.TextEditor;
 import vei.commands.Command;
 import vei.EditorAction;
 import vei.Key;
@@ -49,6 +50,8 @@ public class MovementCommands {
     private static final EditorAction ACTION_CURSOR_UP = editor -> {
         editor.changeLine(-1);
     };
+    private static final EditorAction ACTION_LINE_START = TextEditor::jumpToStartOfLine;
+    private static final EditorAction ACTION_LINE_END = TextEditor::jumpToEndOfLine;
     private static final EditorAction ACTION_WORD_FORWARDS = editor -> {
 
     };
@@ -77,6 +80,14 @@ public class MovementCommands {
     public static final Command COMMAND_CURSOR_DOWN = new Command(
             KEYS_CURSOR_DOWN,
             ACTION_CURSOR_DOWN
+    );
+    public static final Command COMMAND_LINE_START = new Command(
+            KEYS_START_OF_LINE,
+            ACTION_LINE_START
+    );
+    public static final Command COMMAND_LINE_END = new Command(
+            KEYS_END_OF_LINE,
+            ACTION_LINE_END
     );
     public static final Command COMMAND_WORD_FORWARDS = new Command(
             KEYS_WORD_FORWARDS,

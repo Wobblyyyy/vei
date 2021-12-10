@@ -1,19 +1,42 @@
+//file:noinspection GroovyAssignabilityCheck
+//file:noinspection GradlePackageUpdate
+
 plugins {
+    id 'application'
     id 'java'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'me.wobblyyyy'
+version '0.1.0'
+
+ext {
+    javaMainClass = 'vei.Vei'
+}
+
+application {
+    mainClassName = javaMainClass
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/com.googlecode.lanterna/lanterna
+    implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.2.0-alpha1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'vei.Vei',
+                'Class-Path': configurations.runtimeClasspath.collect{it.toURI().toString()}.join(' ')
+        )
+    }
 }

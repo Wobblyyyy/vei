@@ -26,14 +26,15 @@ public class ModeCommands {
         editor.enterNormalMode();
     };
     private static final EditorAction ACTION_INSERT = editor -> {
+        editor.changeCursorPosition(1);
         editor.enterInsertMode();
     };
     private static final EditorAction ACTION_APPEND = editor -> {
-        editor.changeCursorPosition(1);
         editor.enterInsertMode();
     };
     private static final EditorAction ACTION_JUMP_INSERT = editor -> {
         editor.jumpToStartOfLine();
+        editor.changeCursorPosition(1);
         editor.enterInsertMode();
     };
     private static final EditorAction ACTION_JUMP_APPEND = editor -> {

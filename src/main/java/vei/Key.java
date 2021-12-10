@@ -181,6 +181,65 @@ public enum Key {
     CURLY_BRACKET_OPEN,
     CURLY_BRACKET_CLOSE;
 
+    public static char reverseMatch(Key input) {
+        switch (input) {
+            case A: return 'a';
+            case B: return 'b';
+            case C: return 'c';
+            case D: return 'd';
+            case E: return 'e';
+            case F: return 'f';
+            case G: return 'g';
+            case H: return 'h';
+            case I: return 'i';
+            case J: return 'j';
+            case K: return 'k';
+            case L: return 'l';
+            case M: return 'm';
+            case N: return 'n';
+            case O: return 'o';
+            case P: return 'p';
+            case Q: return 'q';
+            case R: return 'r';
+            case S: return 's';
+            case T: return 't';
+            case U: return 'u';
+            case V: return 'v';
+            case W: return 'w';
+            case X: return 'x';
+            case Y: return 'y';
+            case Z: return 'z';
+            case S_A: return 'A';
+            case S_B: return 'B';
+            case S_C: return 'C';
+            case S_D: return 'D';
+            case S_E: return 'E';
+            case S_F: return 'F';
+            case S_G: return 'G';
+            case S_H: return 'H';
+            case S_I: return 'I';
+            case S_J: return 'J';
+            case S_K: return 'K';
+            case S_L: return 'L';
+            case S_M: return 'M';
+            case S_N: return 'N';
+            case S_O: return 'O';
+            case S_P: return 'P';
+            case S_Q: return 'Q';
+            case S_R: return 'R';
+            case S_S: return 'S';
+            case S_T: return 'T';
+            case S_U: return 'U';
+            case S_V: return 'V';
+            case S_W: return 'W';
+            case S_X: return 'X';
+            case S_Y: return 'Y';
+            case S_Z: return 'Z';
+        }
+
+        return '?';
+    }
+
     public static Key match(char input,
                             boolean isControlPressed,
                             boolean isBackspacePressed) {

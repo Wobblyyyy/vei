@@ -10,7 +10,6 @@ import java.util.List;
 public record CommandRegistry(List<Command> commands) {
     private static final List<Command> DEFAULT_COMMANDS = new ArrayList<>(50);
     public static final List<Command> DEFAULT_NORMAL_COMMANDS = new ArrayList<>(50) {{
-        add(ModeCommands.COMMAND_NORMAL);
         add(ModeCommands.COMMAND_INSERT);
         add(ModeCommands.COMMAND_APPEND);
         add(ModeCommands.COMMAND_JUMP_INSERT);
@@ -19,17 +18,32 @@ public record CommandRegistry(List<Command> commands) {
         add(MovementCommands.COMMAND_CURSOR_RIGHT);
         add(MovementCommands.COMMAND_CURSOR_UP);
         add(MovementCommands.COMMAND_CURSOR_DOWN);
+        add(MovementCommands.COMMAND_LINE_START);
+        add(MovementCommands.COMMAND_LINE_END);
         add(MovementCommands.COMMAND_WORD_FORWARDS);
         add(MovementCommands.COMMAND_WORD_BACKWARDS);
         add(MovementCommands.COMMAND_FILE_TOP);
         add(MovementCommands.COMMAND_FILE_BOTTOM);
     }};
-    private static final List<Command> DEFAULT_INSERT_COMMANDS = new ArrayList<>(50);
-    private static final List<Command> DEFAULT_VISUAL_COMMANDS = new ArrayList<>(50);
+    public static final List<Command> DEFAULT_INSERT_COMMANDS = new ArrayList<>(50) {{
+        add(ModeCommands.COMMAND_NORMAL);
+    }};
+    public static final List<Command> DEFAULT_VISUAL_COMMANDS = new ArrayList<>(50);
 
-    public boolean anyMatches(Key[] keys) {
+    public Command getExactMatch(Key[] currentCommand) {
         for (Command command : commands) {
-            if (command.doesMatch(keys)) {
+            if (command.isExactMatch(currentCommand)) {
+                return command;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean anyMatches(Key[] keys,
+                              int maxIndex) {
+    for (Command command : commands) {
+            if (command.doesMatch(keys, maxIndex)) {
                 return true;
             }
         }
