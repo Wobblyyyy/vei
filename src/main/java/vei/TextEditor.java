@@ -6,7 +6,9 @@ import vei.commands.CommandRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings({"UnusedReturnValue", "FieldMayBeFinal"})
 public class TextEditor {
@@ -16,6 +18,8 @@ public class TextEditor {
     private final Key[] currentCommand = new Key[100];
     private int currentCommandIndex = 0;
     private EditorMode mode = EditorMode.NORMAL;
+    private final Map<String, Object> dataMap = new HashMap<>();
+    private final Map<Character, VeiPosition> markerMap = new HashMap<>();
     private CommandRegistry normalRegistry;
     private CommandRegistry insertRegistry;
     private CommandRegistry visualRegistry;
@@ -32,6 +36,14 @@ public class TextEditor {
         normalRegistry = new CommandRegistry(CommandRegistry.DEFAULT_NORMAL_COMMANDS);
         insertRegistry = new CommandRegistry(CommandRegistry.DEFAULT_INSERT_COMMANDS);
         visualRegistry = new CommandRegistry(CommandRegistry.DEFAULT_VISUAL_COMMANDS);
+    }
+    
+    public Map<String, Object> getDataMap() {
+        return dataMap;
+    }
+    
+    public Map<Character, VeiPosition> getMarkerMap() {
+        return markerMap;
     }
 
     public void setText(String text) {
