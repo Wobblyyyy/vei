@@ -1,4 +1,4 @@
 package vei.plugin;
 
-public class VeiPluginKeyPress() {
+public class VeiPluginKeyPress {
 }

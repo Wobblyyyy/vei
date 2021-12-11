@@ -18,13 +18,13 @@ import java.util.concurrent.atomic.AtomicReference;
 public class VeiWindow {
     private static final DefaultTerminalFactory factory =
             new DefaultTerminalFactory();
-    private Terminal terminal;
-    private Screen screen;
-    private TextEditor editor;
-    TextGraphics graphics;
     public final AtomicInteger commandRow = new AtomicInteger(0);
     public final AtomicInteger modeRow = new AtomicInteger(0);
     public final AtomicReference<TerminalSize> size = new AtomicReference<>();
+    TextGraphics graphics;
+    private Terminal terminal;
+    private Screen screen;
+    private TextEditor editor;
 
     public VeiWindow() {
 
@@ -38,7 +38,7 @@ public class VeiWindow {
         screen = new TerminalScreen(terminal);
         screen.startScreen();
         screen.setCursorPosition(null);
-        editor = new TextEditor();
+        editor = new TextEditor(screen);
         graphics = screen.newTextGraphics();
     }
 
@@ -100,16 +100,20 @@ public class VeiWindow {
         int startColumn = String.valueOf(lineCount).length() + 1;
         int minRow = 0;
         int maxRow = modeRow.get() - 1;
+        editor.setStartRow(0);
+        editor.setStopRow(size.get().getRows());
         while (true) {
             stroke = terminal.readInput();
-            if (stroke.getKeyType() == KeyType.Escape) break;
+            KeyType type = stroke.getKeyType();
+            if (type == KeyType.Escape) break;
+            char character = stroke.getCharacter();
             key = Key.match(
-                    stroke.getCharacter(),
+                    character,
                     stroke.isCtrlDown(),
-                    false
+                    type == KeyType.Backspace
             );
             screen.doResizeIfNecessary();
-            editor.onKeyDown(key);
+            editor.onKeyDown(key, character);
             graphics.putString(
                     0,
                     commandRow.get(),
@@ -134,7 +138,16 @@ public class VeiWindow {
                             editor.getCol()
                     )
             );
-            String[] lines = editor.getLineStrings(0, editor.getLineCount());
+            if (type == KeyType.Backspace) {
+                graphics.drawLine(
+                        0,
+                        editor.getRow() - 1,
+                        size.get().getColumns() - 1,
+                        editor.getRow() - 1,
+                        ' '
+                );
+            }
+            String[] lines = editor.getLineStrings();
             for (int i = 0; i < lines.length && i < modeRow.get(); i++) {
                 graphics.putString(
                         0,

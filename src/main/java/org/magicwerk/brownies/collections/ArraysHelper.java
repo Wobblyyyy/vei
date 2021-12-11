@@ -1,4 +1,4 @@
-package org.magicwerk.brownies.collections.helper;
+package org.magicwerk.brownies.collections;
 
 import java.util.Arrays;
 

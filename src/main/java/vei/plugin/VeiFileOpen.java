@@ -1,4 +1,4 @@
 package vei.plugin;
 
-public class VeiFileOpen() {
+public class VeiFileOpen {
 }
