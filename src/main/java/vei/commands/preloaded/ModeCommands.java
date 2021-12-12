@@ -39,6 +39,7 @@ public class ModeCommands {
             ACTION_INSERT
     );
     private static final EditorAction ACTION_APPEND = editor -> {
+        editor.changeCursorPosition(-1);
         editor.enterInsertMode();
     };
     public static final Command COMMAND_APPEND = new Command(

@@ -1,11 +1,24 @@
 package vei.plugin;
 
+import vei.EditorMode;
+import vei.TextEditor;
+import vei.VeiWindow;
 import vei.commands.Command;
 
 public abstract class VeiPlugin {
     public abstract VeiPluginInformation getPluginInformation();
 
+    public void onLoad(VeiWindow window,
+                       TextEditor editor) {
+
+    }
+
     public void onKeyPress(VeiPluginKeyPress keyPress) {
+
+    }
+
+    public void onModeChange(EditorMode oldMode,
+                             EditorMode newMode) {
 
     }
 

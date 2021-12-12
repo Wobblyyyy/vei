@@ -1,6 +1,7 @@
 package vei.commands;
 
 import vei.Key;
+import vei.commands.preloaded.InfoCommands;
 import vei.commands.preloaded.ModeCommands;
 import vei.commands.preloaded.MovementCommands;
 
@@ -25,6 +26,7 @@ public record CommandRegistry(List<Command> commands) {
         add(MovementCommands.COMMAND_FILE_BOTTOM);
         add(MovementCommands.COMMAND_SCROLL_UP);
         add(MovementCommands.COMMAND_SCROLL_DOWN);
+        add(InfoCommands.COMMAND_PLUGINS);
     }};
     public static final List<Command> DEFAULT_INSERT_COMMANDS = new ArrayList<>(50) {{
         add(ModeCommands.COMMAND_NORMAL);
@@ -40,6 +42,10 @@ public record CommandRegistry(List<Command> commands) {
         }
 
         return null;
+    }
+
+    public void addCommand(Command command) {
+        commands.add(command);
     }
 
     public boolean anyMatches(Key[] keys,

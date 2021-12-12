@@ -2,5 +2,6 @@ package vei;
 
 @FunctionalInterface
 public interface KeyPressHandler {
-    void onKeyPress(Key key);
+    void onKeyPress(Key key,
+                    char character);
 }

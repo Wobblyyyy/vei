@@ -7,6 +7,7 @@ import vei.commands.Command;
 
 import java.io.IOException;
 
+@SuppressWarnings("Convert2MethodRef")
 public class MovementCommands {
     private static final Key[] KEYS_CURSOR_RIGHT = new Key[]{
             Key.H
@@ -84,12 +85,13 @@ public class MovementCommands {
         if (c != ' ') startedInWord = true;
         while (true) {
             int lineLength = editor.getCurrentLineLength();
-            if (lineLength == 0 || editor.getCol() == lineLength - 1) {
+            if (lineLength == 0 || editor.getCol() >= lineLength - 1) {
                 editor.setCol(1);
                 editor.changeLine(1);
                 c = editor.getCurrentChar();
             }
-            if (editor.getCol() == lineLength && editor.getRow() == editor.getLineCount()) {
+            int col = editor.getCol();
+            if (col == lineLength && editor.getRow() == editor.getLineCount()) {
                 break;
             }
             editor.changeCursorPosition(-1);
@@ -137,44 +139,34 @@ public class MovementCommands {
             ACTION_WORD_BACKWARDS
     );
     private static final EditorAction ACTION_FILE_TOP = editor -> {
-
+        editor.scrollToTop();
     };
     public static final Command COMMAND_FILE_TOP = new Command(
             KEYS_FILE_TOP,
             ACTION_FILE_TOP
     );
     private static final EditorAction ACTION_FILE_BOTTOM = editor -> {
-
+        editor.scrollToBottom();
     };
     public static final Command COMMAND_FILE_BOTTOM = new Command(
             KEYS_FILE_BOTTOM,
             ACTION_FILE_BOTTOM
     );
-    private static final Key[] KEYS_SCROLL_UP = new Key[] {
+    private static final Key[] KEYS_SCROLL_UP = new Key[]{
             Key.S,
             Key.K
     };
-    private static final Key[] KEYS_SCROLL_DOWN = new Key[] {
+    private static final Key[] KEYS_SCROLL_DOWN = new Key[]{
             Key.S,
             Key.J
     };
     private static final EditorAction ACTION_SCROLL_UP = editor -> {
         editor.scroll(-1);
         editor.getScreen().clear();
-        try {
-            editor.getScreen().refresh();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     };
     private static final EditorAction ACTION_SCROLL_DOWN = editor -> {
         editor.scroll(1);
         editor.getScreen().clear();
-        try {
-            editor.getScreen().refresh();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     };
     public static final Command COMMAND_SCROLL_UP = new Command(
             KEYS_SCROLL_UP,

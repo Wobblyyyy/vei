@@ -611,4 +611,15 @@ public enum Key {
         }
         return Key.NONE;
     }
+
+    public static Key[] translateString(String string,
+                                        Key... extras) {
+        Key[] keys = new Key[string.length() + extras.length];
+        char[] chars = string.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            keys[i] = match(chars[i], false, false);
+        }
+        System.arraycopy(extras, 0, keys, chars.length, extras.length);
+        return keys;
+    }
 }
